@@ -36,12 +36,12 @@ async remove(id: number) {
 async deleteAllCategoria(){
   const query = this.categoriaRepository.createQueryBuilder('categoria');
   try{
-    return await query  
+    return await query 
       .delete()
       .where({})
       .execute()
   }catch(error){
-    throw new InternalServerErrorException('sysadmin ...')
+    throw new InternalServerErrorException('sysadmin categoria ...')
   }
 }
 }

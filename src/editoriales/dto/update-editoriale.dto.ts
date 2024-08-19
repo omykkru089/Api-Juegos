@@ -2,7 +2,7 @@ import { PartialType } from '@nestjs/mapped-types';
 import { CreateEditorialeDto } from './create-editoriale.dto';
 import { IsOptional, IsString } from 'class-validator';
 
-export class UpdateEditorialeDto extends PartialType(CreateEditorialeDto) {
+export class UpdateEditorialeDto {
     @IsString()
     @IsOptional()
     nombre: string;

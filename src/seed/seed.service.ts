@@ -35,17 +35,11 @@ export class SeedService {
         await this.insertNewCategorias();
         await this.insertNewPlataformas();
         await this.insertNewEditoriales();
-        await this.insertNewJuegos();
         await this.insertNewDesarrolladores();
+        await this.insertNewJuegos();
       }
 
-      private async insertNewCategorias(){
-        await this.categoriaService.deleteAllCategoria();
-        const insertPromisesCategorias = [];
-        seedCategorias.forEach( (categoria: Categoria) => {
-            insertPromisesCategorias.push(this.categoriaService.create(categoria))
-        })
-      }
+
       private async insertNewJuegos(){
         await this.juegoService.deleteAllJuegos();
         const insertPromisesJuegos = [];
@@ -54,6 +48,16 @@ export class SeedService {
           insertPromisesJuegos.push(this.juegoService.create(juego));
         });
       }
+      
+      private async insertNewCategorias(){
+        await this.categoriaService.deleteAllCategoria();
+        const insertPromisesCategorias = [];
+        seedCategorias.forEach( (categoria: Categoria) => {
+          console.log(categoria); 
+            insertPromisesCategorias.push(this.categoriaService.create(categoria))
+        })
+      }
+      
       
       private async insertNewPlataformas(){
             await this.plataformaService.deleteAllPlataforma();
@@ -81,5 +85,6 @@ export class SeedService {
           insertPromisesDesarrolladores.push(this.desarrolladorService.create(desarrollador));
         });
       }
+      
 }
 

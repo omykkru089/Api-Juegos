@@ -1,16 +1,16 @@
 [
     {
-        "nombre": "2K Games",
+        "nombre": "2KGames",
         "descripcion": "2K Games es una empresa distribuidora de juegos con sede en Novato (California)",
-        "pais_origen": "2K Games (Estados Unidos)",
-        "anio_fundacion": "2K Games (25/1/2005)",
+        "pais_origen": "Estados Unidos",
+        "anio_fundacion": "25/1/2005",
         "sitio_web": "https://www.2k.com/en-US/"
     },
     {
         "nombre": "Sony Computer Entertaiment",
         "descripcion": "Sony Computer Entertaiment es un desarrollador multinacional de juegos.",
-        "pais_origen": "Sony Computer Entertaiment (Tokio)",
-        "anio_fundacion": "Sony Computer Entertaiment (16/11/1993)",
+        "pais_origen": "Tokio",
+        "anio_fundacion": "16/11/1993",
         "sitio_web": "https://sonyinteractive.com/en/"
     },
     {
@@ -40,5 +40,12 @@
         "pais_origen": "Japon",
         "anio_fundacion": "02/04/2012",
         "sitio_web": "https://es.bandainamcoent.eu/"
+    },
+    {
+        "nombre": "Mojang",
+        "descripcion": "El estudio fue fundado por Markus Persson (conocido comúnmente como Notch) en 2009 como Mojang Specifications",
+        "pais_origen": "Suecia",
+        "anio_fundacion": "XX/XX/2009",
+        "sitio_web": "https://www.minecraft.net/es-es"
     }
 ]

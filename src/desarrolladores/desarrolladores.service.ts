@@ -41,7 +41,7 @@ export class DesarrolladoresService {
         .where({})
         .execute()
     }catch(error){
-      throw new InternalServerErrorException('sysadmin ...')
+      throw new InternalServerErrorException('sysadmin desarrollador ...')
     }
   }
 }

@@ -57,6 +57,7 @@ export class JuegosService {
         desarrollador,
       })
     }
+
     
   async findAll() {
     return await this.juegoRepository.find();
@@ -82,7 +83,7 @@ export class JuegosService {
         .where({})
         .execute()
     }catch(error){
-      throw new InternalServerErrorException('sysadmin ...')
+      throw new InternalServerErrorException('sysadmin juego ...')
     }
   }
 }

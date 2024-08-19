@@ -8,35 +8,28 @@ export class UpdateJuegoDto  {
     nombre?: string;
     @IsString()
     @IsOptional()
-    Descripcion?: string;
+    descripcion?: string;
     @IsString()
     @IsOptional()
-    Plataforma?: string;
+    precio?: string;
     @IsString()
     @IsOptional()
-    Precio?: string;
+    fecha_de_lanzamiento?: string;
     @IsString()
     @IsOptional()
-    Fecha_de_lanzamiento?: string;
     @IsString()
     @IsOptional()
-    Desarrollador?: string;
+    clasificacion_por_edad?: string;
     @IsString()
     @IsOptional()
-    Editorial?: string;
+    idiomas?: string;
     @IsString()
     @IsOptional()
-    Clasificacion_por_edad?: string;
+    imagen_de_portada?: string;
     @IsString()
     @IsOptional()
-    Idiomas?: string;
+    requisitos_del_sistema?: string;
     @IsString()
     @IsOptional()
-    Imagen_de_portada?: string;
-    @IsString()
-    @IsOptional()
-    Requisitos_del_sistema?: string;
-    @IsString()
-    @IsOptional()
-    Popularidad?: string;
+    popularidad?: string;
 }

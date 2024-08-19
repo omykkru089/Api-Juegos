@@ -44,7 +44,6 @@ export class Juego {
     @Column()
     popularidad: string;
 
-
     
     
 }
