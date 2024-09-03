@@ -7,6 +7,8 @@ import { EditorialesModule } from './editoriales/editoriales.module';
 import { DesarrolladoresModule } from './desarrolladores/desarrolladores.module';
 import { SeedController } from './seed/seed.controller';
 import { SeedModule } from './seed/seed.module';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -25,7 +27,9 @@ import { SeedModule } from './seed/seed.module';
     PlataformasModule,
     EditorialesModule,
     DesarrolladoresModule,
-    SeedModule
+    SeedModule,
+    UsersModule,
+    AuthModule
   ],
   controllers: [],
   providers: [],
