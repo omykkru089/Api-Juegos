@@ -31,7 +31,7 @@ export class EditorialesService {
   }
 
   async remove(id: number) {
-    return await this.editorialRepository.softDelete({ id });
+    return await this.editorialRepository.delete({ id });
   }
 
   async deleteAllEditorial(){

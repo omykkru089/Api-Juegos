@@ -31,7 +31,7 @@ export class PlataformasService {
   }
 
   async remove(id: number) {
-    return await this.plataformaRepository.softDelete({ id });
+    return await this.plataformaRepository.delete({ id });
   }
 
   async deleteAllPlataforma(){

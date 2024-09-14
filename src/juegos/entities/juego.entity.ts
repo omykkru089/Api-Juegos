@@ -1,8 +1,9 @@
-import { Categoria } from "src/categorias/entities/categoria.entity";
-import { Desarrolladore } from "src/desarrolladores/entities/desarrolladore.entity";
-import { Editoriale } from "src/editoriales/entities/editoriale.entity";
-import { Plataforma } from "src/plataformas/entities/plataforma.entity";
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Categoria } from "../../categorias/entities/categoria.entity";
+import { Desarrolladore } from "../../desarrolladores/entities/desarrolladore.entity";
+import { Editoriale } from "../../editoriales/entities/editoriale.entity";
+import { Plataforma } from "../../plataformas/entities/plataforma.entity";
+import { User } from "../../users/entities/user.entity";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 @Entity()
 export class Juego {
@@ -43,7 +44,11 @@ export class Juego {
     requisitos_del_sistema: string;
     @Column()
     popularidad: string;
+    @Column()
+    userEmail:string;
+    @ManyToOne(() => User)
+    @JoinColumn({name: 'userEmail', referencedColumnName: 'email',})
+    user:User;
 
-    
     
 }

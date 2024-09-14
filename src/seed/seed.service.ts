@@ -19,6 +19,7 @@ import { PlataformasService } from 'src/plataformas/plataformas.service';
 import { Plataforma } from 'src/plataformas/entities/plataforma.entity';
 import { Editoriale } from 'src/editoriales/entities/editoriale.entity';
 import { Desarrolladore } from 'src/desarrolladores/entities/desarrolladore.entity';
+import { UserActiveInterface } from 'src/common/interface/user-active.interface';
 
 @Injectable()
 export class SeedService {
@@ -43,9 +44,14 @@ export class SeedService {
       private async insertNewJuegos(){
         await this.juegoService.deleteAllJuegos();
         const insertPromisesJuegos = [];
-        seedJuegos.forEach( (juego: CreateJuegoDto)  => {
+        const user: UserActiveInterface = {
+          email: 'admin@test.com',
+          role: 'admin',
+          // Rellena cualquier otra propiedad de la interfaz que sea obligatoria
+      };
+        seedJuegos.forEach( (juego: CreateJuegoDto, )  => {
           console.log(juego); 
-          insertPromisesJuegos.push(this.juegoService.create(juego));
+          insertPromisesJuegos.push(this.juegoService.create(juego, user));
         });
       }
       
@@ -54,7 +60,7 @@ export class SeedService {
         const insertPromisesCategorias = [];
         seedCategorias.forEach( (categoria: Categoria) => {
           console.log(categoria); 
-            insertPromisesCategorias.push(this.categoriaService.create(categoria))
+            // insertPromisesCategorias.push(this.categoriaService.create(categoria))
         })
       }
       

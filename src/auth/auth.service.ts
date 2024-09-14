@@ -33,7 +33,7 @@ export class AuthService {
 
 
     async login({email, password}: LoginDto){
-        const user = await this.usersService.findOneByEmail(email);
+        const user = await this.usersService.findOneByEmailWithPassword(email);
         if (!user) {
             throw new UnauthorizedException('El Email es incorrecto');
         }
@@ -56,13 +56,6 @@ export class AuthService {
 
 
     async profile ({ email, role}: {email: string, role: string}) {
-
-    // if (role !== 'admin'){
-    //     throw new UnauthorizedException('No estás Autorizado para acceder a este recurso')
-    // }
-
-    
-
         return await this.usersService.findOneByEmail(email);
     }
 }

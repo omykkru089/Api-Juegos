@@ -1,5 +1,6 @@
 import { Juego } from "src/juegos/entities/juego.entity";
-import { Column, Entity, OneToMany } from "typeorm";
+import { User } from "src/users/entities/user.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 
 @Entity()
 export class Categoria {
@@ -12,5 +13,7 @@ export class Categoria {
     descripcion: string;
     @OneToMany(() => Juego, (juego) => juego.categoria)
     juegos: Juego[];
+
+    
     
 }

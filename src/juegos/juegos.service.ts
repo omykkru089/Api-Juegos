@@ -4,10 +4,12 @@ import { UpdateJuegoDto } from './dto/update-juego.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Juego } from './entities/juego.entity';
-import { Categoria } from 'src/categorias/entities/categoria.entity';
-import { Plataforma } from 'src/plataformas/entities/plataforma.entity';
-import { Editoriale } from 'src/editoriales/entities/editoriale.entity';
-import { Desarrolladore } from 'src/desarrolladores/entities/desarrolladore.entity';
+import { Categoria } from '../categorias/entities/categoria.entity';
+import { Plataforma } from '../plataformas/entities/plataforma.entity';
+import { Editoriale } from '../editoriales/entities/editoriale.entity';
+import { Desarrolladore } from '../desarrolladores/entities/desarrolladore.entity';
+import { UserActiveInterface } from '../common/interface/user-active.interface';
+import { Role } from 'src/common/enums/rol.enum';
 
 @Injectable()
 export class JuegosService {
@@ -29,7 +31,7 @@ export class JuegosService {
 
 
   
-  async create(createJuegoDto: CreateJuegoDto) {
+  async create(createJuegoDto: CreateJuegoDto, user: UserActiveInterface) {
 
     const categoria = await this.categoriaRepository.findOneBy({nombre: createJuegoDto.categoria});
     const plataforma = await this.plataformaRepository.findOneBy({nombre: createJuegoDto.plataforma});
@@ -55,12 +57,20 @@ export class JuegosService {
         plataforma,
         editorial,
         desarrollador,
-      })
+        userEmail: user.email,
+      });
     }
 
-    
+    // user: UserActiveInterface
   async findAll() {
-    return await this.juegoRepository.find();
+    // if (user.role === Role.ADMIN) {
+    //   return await this.juegoRepository.find();
+    // }
+    return await this.juegoRepository.find(
+    //   {
+    //   where: { userEmail: user.email },
+    // }
+  );
   }
 
   async findOne(id: number) {
@@ -72,7 +82,7 @@ export class JuegosService {
   }
 
   async remove(id: number) {
-    return await this.juegoRepository.softDelete({ id });
+    return await this.juegoRepository.delete({ id });
   }
 
   async deleteAllJuegos(){

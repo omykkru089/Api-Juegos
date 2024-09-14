@@ -6,8 +6,10 @@ import { AuthGuard } from './guard/auth.guard';
 import { Request } from 'express';
 import { Roles } from './Decorators/roles.decorator';
 import { RolesGuard } from './guard/roles.guard';
-import { Role } from './enums/rol.enum';
+import { Role } from '../common/enums/rol.enum';
 import { Auth } from './Decorators/auth.decorator';
+import { ActiveUser } from '../common/enums/decorators/active-user.decorator';
+import { UserActiveInterface } from '../common/interface/user-active.interface';
 
 interface RequestWithUser extends Request {
     user: {
@@ -51,7 +53,7 @@ export class AuthController {
 
     @Get('profile')
     @Auth(Role.ADMIN)
-    profile(@Req() req: RequestWithUser) {
-    return this.authService.profile(req.user);
+    profile(@ActiveUser() user: UserActiveInterface) {
+    return this.authService.profile(user);
     }
 }

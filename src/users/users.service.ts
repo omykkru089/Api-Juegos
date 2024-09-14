@@ -21,13 +21,20 @@ export class UsersService {
     return this.userRepository.findOneBy({email})
   }
 
+  findOneByEmailWithPassword(email: string) {
+    return this.userRepository.findOne({
+      where: { email },
+      select: ['id', 'nombre', 'email', 'password', 'role'],
+    });
+  }
+
 
   findAll() {
-    return `This action returns all users`;
+    return this.userRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} user`;
+    return this.userRepository.find();
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
@@ -35,6 +42,6 @@ export class UsersService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} user`;
+    return this.userRepository.delete({id})
   }
 }

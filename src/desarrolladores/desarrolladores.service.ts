@@ -30,7 +30,7 @@ export class DesarrolladoresService {
   }
 
   async remove(id: number) {
-    return await this.desarrolladorRepository.softDelete({ id });
+    return await this.desarrolladorRepository.delete({ id });
   }
 
   async deleteAllDesarrollador(){
