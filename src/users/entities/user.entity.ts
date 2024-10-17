@@ -1,5 +1,6 @@
+import { Carrito } from "src/carrito/entities/carrito.entity";
 import { Role } from "../../common/enums/rol.enum";
-import { Column, DeleteDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class User {
@@ -22,4 +23,6 @@ export class User {
     @DeleteDateColumn()
     deletedlAt: Date;
 
+    @OneToMany(() => Carrito, (Carrito) => Carrito.juego)
+    carrito: Carrito[];
 }

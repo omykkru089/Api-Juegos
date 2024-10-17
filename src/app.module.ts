@@ -9,6 +9,7 @@ import { SeedController } from './seed/seed.controller';
 import { SeedModule } from './seed/seed.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { CarritoModule } from './carrito/carrito.module';
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { AuthModule } from './auth/auth.module';
     DesarrolladoresModule,
     SeedModule,
     UsersModule,
-    AuthModule
+    AuthModule,
+    CarritoModule,
   ],
   controllers: [],
   providers: [],

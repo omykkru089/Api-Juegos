@@ -7,9 +7,16 @@ import { Categoria } from 'src/categorias/entities/categoria.entity';
 import { Plataforma } from 'src/plataformas/entities/plataforma.entity';
 import { Editoriale } from 'src/editoriales/entities/editoriale.entity';
 import { Desarrolladore } from 'src/desarrolladores/entities/desarrolladore.entity';
+import { CategoriasModule } from 'src/categorias/categorias.module';
+import { PlataformasModule } from 'src/plataformas/plataformas.module';
+import { DesarrolladoresModule } from 'src/desarrolladores/desarrolladores.module';
+import { EditorialesModule } from 'src/editoriales/editoriales.module';
+import { UsersModule } from 'src/users/users.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Juego, Categoria, Plataforma, Editoriale, Desarrolladore])],
+  imports: [TypeOrmModule.forFeature([Juego, Categoria, Plataforma, Editoriale, Desarrolladore]),
+  CategoriasModule,PlataformasModule,DesarrolladoresModule,EditorialesModule,UsersModule,
+  ],
   controllers: [JuegosController],
   providers: [JuegosService],
   exports: [TypeOrmModule, JuegosService]

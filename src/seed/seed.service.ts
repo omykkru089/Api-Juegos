@@ -61,6 +61,7 @@ export class SeedService {
         seedCategorias.forEach( (categoria: Categoria) => {
           console.log(categoria); 
             // insertPromisesCategorias.push(this.categoriaService.create(categoria))
+            insertPromisesCategorias.push(this.categoriaService.create(categoria));
         })
       }
       
