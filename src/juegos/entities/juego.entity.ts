@@ -42,15 +42,13 @@ export class Juego {
     @Column()
     imagen_de_portada: string;
     @Column()
+    video: string;
+    @Column()
     requisitos_del_sistema: string;
     @Column()
     popularidad: string;
     @Column()
-    userEmail:string;
-    @ManyToOne(() => User)
-    @JoinColumn({name: 'userEmail', referencedColumnName: 'email',})
-    user:User;
-
+    link: string;
     @OneToMany(() => Carrito, (Carrito) => Carrito.juego)
     carrito: Carrito[];
 }

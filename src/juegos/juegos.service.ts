@@ -31,7 +31,7 @@ export class JuegosService {
 
 
   
-  async create(createJuegoDto: CreateJuegoDto, user: UserActiveInterface) {
+  async create(createJuegoDto: CreateJuegoDto) {
 
     const categoria = await this.categoriaRepository.findOneBy({nombre: createJuegoDto.categoria});
     const plataforma = await this.plataformaRepository.findOneBy({nombre: createJuegoDto.plataforma});
@@ -57,11 +57,8 @@ export class JuegosService {
         plataforma,
         editorial,
         desarrollador,
-        userEmail: user.email,
       });
     }
-
-    // user: UserActiveInterface
   async findAll() {
     // if (user.role === Role.ADMIN) {
     //   return await this.juegoRepository.find();

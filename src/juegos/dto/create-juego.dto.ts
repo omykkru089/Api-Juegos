@@ -33,4 +33,6 @@ export class CreateJuegoDto {
     requisitos_del_sistema: string;
     @IsString()
     popularidad: string;
+    @IsString()
+    link: string;
 }

@@ -10,12 +10,14 @@
         "fecha_de_lanzamiento": "21/11/2012",
         "clasificacion_por_edad": "+18",
         "idiomas": "Español, Ingles, Frances, Aleman, Italiano, Japones, Coreano, Chino",
-        "imagen_de_portada": "https://imgs.search.brave.com/qre983WCgKGV8AdqLU3_S3bsEVWIrtvsV4VrqEuLEkk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL00v/TVY1Qk1UWXlNekEw/TkRrd09WNUJNbDVC/YW5CblhrRnRaVGN3/TnpBd01qTTVPQUBA/Ll9WMV9RTDc1X1VY/ODIwXy5qcGc",
+        "imagen_de_portada": "https://gaming-cdn.com/images/products/14/616x353/borderlands-2-pc-mac-juego-steam-europe-cover.jpg?v=1720622386",
+        "video": "https://www.youtube.com/embed/5TW0wJTFLiw?si=HmHCxxIahOJoCODW?playlist=5TW0wJTFLiw&autoplay=1&start=61&end=97&mute=1&loop=1&controls=0",
         "requisitos_del_sistema": "Minimos: Windows XP, CPU: Dual Core 2.4GHz, 2GB RAM, 13GB Espacio, 256MB VRAM, NVIDIA Geforce 8500/ATI Radeon HD 2600, Sonido: DirectX 9.0c",
-        "popularidad": "6/10"
+        "popularidad": "6/10",
+        "link": "/comprar-borderlands2-PC"
     },
     {
-        "nombre": "Call of Duty Black ops 2",
+        "nombre": "Black ops 2",
         "descripcion": "Un juego de disparos en primera persona enfrentando enemigos con tus aliados en distintos modos de juego",
         "categoria": "Disparos (Shooter)",
         "plataforma": "Steam",
@@ -26,14 +28,16 @@
         "clasificacion_por_edad": "+18",
         "idiomas": "Español, Inglés, Francés, Alemán, Italiano",
         "imagen_de_portada": "https://imgs.search.brave.com/4SuF9q4U0KqnTx9-k0SpsSoKY8yiA0HdEl5McfNORZI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/ZGxjb21wYXJlLmNv/bS9nYW1lX3RldGll/cmUvdXBsb2FkL2dh/bWVpbWFnZS9maWxl/L2NhbGwtb2YtZHV0/eS1ibGFjay1vcHMt/Mi1maWxlLTQ4OTgw/ZGQxLmpwZWcud2Vi/cA",
+        "video": "https://www.youtube.com/embed/x3tedlWs1XY?si=GnMwQR8oYIXYOikD?playlist=x3tedlWs1XY&autoplay=1&start=61&end=111&mute=1&loop=1&controls=0",
         "requisitos_del_sistema": "Windows Vista SP2 or Windows 7Intel Core2 Duo E8200 2.66 GHz or AMD Phenom X3 8750 2.4 GHz 2 GB for 32-bit OS or 4 GB for 64-bit OS Nvidia GeForce 8800GT 512 MB or ATI Radeon HD 3870 512 MB16 GB DirectX 11.0c compatible",
-        "popularidad": "9/10"
+        "popularidad": "9/10",
+        "link": "/comprar-callofduty-blackops2-PC"
     },
     {
         "nombre": "Minecraft",
         "descripcion": "Un juego de pixeles en estilo cubos 3D la cual es uno de los juegos que proporciona crear casi todo lo que te puedas imaginar",
         "categoria": "Acción y Aventura",
-        "plataforma": "Microsoft Store",
+        "plataforma": "Microsoft",
         "editorial": "Mojang",
         "desarrollador": "Mojang",
         "precio": "23€",
@@ -41,7 +45,9 @@
         "clasificacion_por_edad": "+7",
         "idiomas": "Tiene la gran parte de idiomas del mundo existentes u conocidos",
         "imagen_de_portada": "https://imgs.search.brave.com/u5WMAG6UlNbYeXXkDvGvJ2Db5o41zlSxFb7Wk5xnoYE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJzLmNvbS9p/bWFnZXMvZmVhdHVy/ZWQvbWluZWNyYWZ0/LXBpY3R1cmVzLWhl/Y3VmcG1pYWRidWFs/ejQuanBn",
+        "video": "https://www.youtube.com/embed/MmB9b5njVbA?si=qdKo8J-U28ZhbSs-?playlist=MmB9b5njVbA&autoplay=1&controls=0&mute=1&loop=1",
         "requisitos_del_sistema": "Intel Pentium D ó AMD Athlon 64 (K8) 2.6 GHz2GBIntel HD Graphics ó AMD (antes ATI) Radeon HD con OpenGL 2.1Nvidia GeForce 9600 GT ó AMD Radeon HD 2400 con OpenGL 3.1 Al menos 200 MB libresJava 6 Release 45",
-        "popularidad": "10/10"
+        "popularidad": "10/10",
+        "link": "/comprar-minecraft-PC"
     }
 ]

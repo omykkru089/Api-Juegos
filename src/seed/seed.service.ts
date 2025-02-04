@@ -44,14 +44,10 @@ export class SeedService {
       private async insertNewJuegos(){
         await this.juegoService.deleteAllJuegos();
         const insertPromisesJuegos = [];
-        const user: UserActiveInterface = {
-          email: 'admin@test.com',
-          role: 'admin',
-          // Rellena cualquier otra propiedad de la interfaz que sea obligatoria
-      };
+        
         seedJuegos.forEach( (juego: CreateJuegoDto, )  => {
           console.log(juego); 
-          insertPromisesJuegos.push(this.juegoService.create(juego, user));
+          insertPromisesJuegos.push(this.juegoService.create(juego));
         });
       }
       
