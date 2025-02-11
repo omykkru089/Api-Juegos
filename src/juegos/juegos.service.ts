@@ -60,13 +60,7 @@ export class JuegosService {
       });
     }
   async findAll() {
-    // if (user.role === Role.ADMIN) {
-    //   return await this.juegoRepository.find();
-    // }
     return await this.juegoRepository.find(
-    //   {
-    //   where: { userEmail: user.email },
-    // }
   );
   }
 

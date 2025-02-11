@@ -3,8 +3,7 @@ import { Categoria } from "../../categorias/entities/categoria.entity";
 import { Desarrolladore } from "../../desarrolladores/entities/desarrolladore.entity";
 import { Editoriale } from "../../editoriales/entities/editoriale.entity";
 import { Plataforma } from "../../plataformas/entities/plataforma.entity";
-import { User } from "../../users/entities/user.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 
 @Entity()
 export class Juego {
