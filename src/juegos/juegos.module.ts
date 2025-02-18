@@ -12,10 +12,12 @@ import { PlataformasModule } from 'src/plataformas/plataformas.module';
 import { DesarrolladoresModule } from 'src/desarrolladores/desarrolladores.module';
 import { EditorialesModule } from 'src/editoriales/editoriales.module';
 import { UsersModule } from 'src/users/users.module';
+import { PedidosModule } from 'src/pedidos/pedidos.module';
+import { CarritoModule } from 'src/carrito/carrito.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Juego, Categoria, Plataforma, Editoriale, Desarrolladore]),
-  CategoriasModule,PlataformasModule,DesarrolladoresModule,EditorialesModule,UsersModule,
+  CategoriasModule,PlataformasModule,DesarrolladoresModule,EditorialesModule,UsersModule,PedidosModule,CarritoModule
   ],
   controllers: [JuegosController],
   providers: [JuegosService],

@@ -1,11 +1,8 @@
-import { Body, Controller, Get, Post, UseGuards, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
-import { AuthGuard } from './guard/auth.guard';
 import { Request } from 'express';
-import { Roles } from './Decorators/roles.decorator';
-import { RolesGuard } from './guard/roles.guard';
 import { Role } from '../common/enums/rol.enum';
 import { Auth } from './Decorators/auth.decorator';
 import { ActiveUser } from '../common/enums/decorators/active-user.decorator';
@@ -33,7 +30,6 @@ export class AuthController {
     ){
         console.log(registerDto)
         return this.authService.register(registerDto);
-        // return this.authService.register();
     }
 
     @Post('login')

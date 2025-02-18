@@ -1,6 +1,6 @@
-import { Carrito } from "src/carrito/entities/carrito.entity";
 import { Role } from "../../common/enums/rol.enum";
 import { Column, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Pedido } from "src/pedidos/entities/pedido.entity";
 
 @Entity()
 export class User {
@@ -17,12 +17,12 @@ export class User {
     @Column({nullable: false, select: false})
     password: string;
 
-    @Column({type:'enum', default: Role.USER, enum: Role})
-    role: Role
+    @Column({type:'enum', default: Role.USER, enum: ['user', 'admin']})
+    role: string;
 
     @DeleteDateColumn()
     deletedlAt: Date;
 
-    @OneToMany(() => Carrito, (Carrito) => Carrito.juego)
-    carrito: Carrito[];
+    @OneToMany(() => Pedido, (pedido) => pedido.user)
+    pedidos: Pedido[];
 }

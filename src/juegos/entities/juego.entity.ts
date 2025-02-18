@@ -48,6 +48,6 @@ export class Juego {
     popularidad: string;
     @Column()
     link: string;
-    @OneToMany(() => Carrito, (Carrito) => Carrito.juego)
+    @OneToMany(() => Carrito, (carrito) => carrito.juego)
     carrito: Carrito[];
 }

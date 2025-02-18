@@ -8,8 +8,6 @@ import { Categoria } from '../categorias/entities/categoria.entity';
 import { Plataforma } from '../plataformas/entities/plataforma.entity';
 import { Editoriale } from '../editoriales/entities/editoriale.entity';
 import { Desarrolladore } from '../desarrolladores/entities/desarrolladore.entity';
-import { UserActiveInterface } from '../common/interface/user-active.interface';
-import { Role } from 'src/common/enums/rol.enum';
 
 @Injectable()
 export class JuegosService {

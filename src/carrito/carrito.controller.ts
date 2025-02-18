@@ -7,16 +7,16 @@ export class CarritoController {
 
   @Post()
   async addToCarrito(
-    @Body('userId') userId: number,
-    @Body('juegoId') juegoId: number,
+    @Body('pedido') id_pedido: number,
+    @Body('juegoId') juego_Identificador: number,
     @Body('cantidad') cantidad: number,
   ) {
-    return this.carritoService.addToCarrito(userId, juegoId, cantidad);
+    return this.carritoService.addToCarrito(id_pedido, juego_Identificador, cantidad);
   }
 
-  @Get(':userId')
-  async getCarrito(@Param('userId') userId: number) {
-    return this.carritoService.getCarritoByUser(userId);
+  @Get(':id')
+  async getCarrito(@Param('id') id: number) {
+    return this.carritoService.getCarritoByPedido(id);
   }
 
   @Delete(':id')
@@ -24,8 +24,8 @@ export class CarritoController {
     return this.carritoService.removeFromCarrito(id);
   }
 
-  @Delete('clear/:userId')
-  async clearCarrito(@Param('userId') userId: number) {
-    return this.carritoService.clearCarrito(userId);
+  @Delete('clear/:id')
+  async clearCarrito(@Param('id') id: number) {
+    return this.carritoService.clearCarrito(id);
   }
 }

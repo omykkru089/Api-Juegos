@@ -5,11 +5,11 @@ import { CategoriasModule } from './categorias/categorias.module';
 import { PlataformasModule } from './plataformas/plataformas.module';
 import { EditorialesModule } from './editoriales/editoriales.module';
 import { DesarrolladoresModule } from './desarrolladores/desarrolladores.module';
-import { SeedController } from './seed/seed.controller';
 import { SeedModule } from './seed/seed.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { CarritoModule } from './carrito/carrito.module';
+import { PedidosModule } from './pedidos/pedidos.module';
 
 @Module({
   imports: [
@@ -32,6 +32,7 @@ import { CarritoModule } from './carrito/carrito.module';
     UsersModule,
     AuthModule,
     CarritoModule,
+    PedidosModule,
   ],
   controllers: [],
   providers: [],

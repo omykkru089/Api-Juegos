@@ -9,18 +9,13 @@ import * as seedEditorial from './data/editorial.json'
 import { CategoriasService } from 'src/categorias/categorias.service';
 import { Categoria } from 'src/categorias/entities/categoria.entity';
 import { DesarrolladoresService } from 'src/desarrolladores/desarrolladores.service';
-import { CreateDesarrolladoreDto } from 'src/desarrolladores/dto/create-desarrolladore.dto';
-import { CreateEditorialeDto } from 'src/editoriales/dto/create-editoriale.dto';
 import { EditorialesService } from 'src/editoriales/editoriales.service';
 import { CreateJuegoDto } from 'src/juegos/dto/create-juego.dto';
 import { JuegosService } from 'src/juegos/juegos.service';
-import { CreatePlataformaDto } from 'src/plataformas/dto/create-plataforma.dto';
 import { PlataformasService } from 'src/plataformas/plataformas.service';
 import { Plataforma } from 'src/plataformas/entities/plataforma.entity';
 import { Editoriale } from 'src/editoriales/entities/editoriale.entity';
 import { Desarrolladore } from 'src/desarrolladores/entities/desarrolladore.entity';
-import { UserActiveInterface } from 'src/common/interface/user-active.interface';
-
 @Injectable()
 export class SeedService {
 
@@ -45,7 +40,7 @@ export class SeedService {
         await this.juegoService.deleteAllJuegos();
         const insertPromisesJuegos = [];
         
-        seedJuegos.forEach( (juego: CreateJuegoDto, )  => {
+        seedJuegos.forEach( (juego: CreateJuegoDto )  => {
           console.log(juego); 
           insertPromisesJuegos.push(this.juegoService.create(juego));
         });

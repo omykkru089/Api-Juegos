@@ -13,7 +13,6 @@ export class CategoriasService {
   
   ) {}
   async create(createCategoriaDto: CreateCategoriaDto) {
-    // const juego = this.juegoRepository.create(createJuegoDto);
     return await this.categoriaRepository.save(createCategoriaDto);
   }
   

@@ -25,14 +25,15 @@ export class AuthService {
     return await this.usersService.create({
         nombre,
         email,
-        password: await bcryptjs.hash(password, 10)
+        password: await bcryptjs.hash(password, 10),
+        role: 'user',
     });
 
     } 
 
 
 
-    async login({email, password}: LoginDto){
+    async login({email, password, role}: LoginDto){
         const user = await this.usersService.findOneByEmailWithPassword(email);
         if (!user) {
             throw new UnauthorizedException('El Email es incorrecto');
@@ -51,6 +52,7 @@ export class AuthService {
         return {
             token,
             email,
+            role: user.role
         };
     }
 

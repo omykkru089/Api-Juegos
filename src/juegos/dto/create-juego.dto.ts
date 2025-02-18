@@ -1,5 +1,4 @@
-import { IsNumber, IsObject, IsOptional, IsString } from "class-validator";
-import { Juego } from "../entities/juego.entity";
+import { IsOptional, IsString } from "class-validator";
 
 export class CreateJuegoDto {
 
@@ -7,7 +6,6 @@ export class CreateJuegoDto {
     nombre: string;
     @IsString()
     descripcion: string;
-    @IsString()
     @IsOptional()
     categoria?: string;
     @IsString()
