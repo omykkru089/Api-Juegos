@@ -4,9 +4,7 @@ import { Pedido } from 'src/pedidos/entities/pedido.entity';
 
 @Entity()
 export class Carrito {
-  
-  
-  
+    
   @PrimaryGeneratedColumn()
   @ManyToOne(() => Pedido, pedido => pedido.id)
   pedido: Pedido;
