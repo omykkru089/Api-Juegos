@@ -28,6 +28,9 @@ export class CreateJuegoDto {
     @IsOptional()
     imagen_de_portada?: string;
     @IsString()
+    @IsOptional()
+    video?: string;
+    @IsString()
     requisitos_del_sistema: string;
     @IsString()
     popularidad: string;

@@ -17,7 +17,7 @@ app.useGlobalPipes(
 );
 app.enableCors({
   origin: 'http://localhost:3000', // Dirección de tu frontend
-  methods: 'GET,POST,DELETE',
+  methods: 'GET,POST,DELETE,PATCH,OPTIONS',
 });
 
   await app.listen(3001);
