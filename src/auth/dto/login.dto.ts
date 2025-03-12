@@ -1,7 +1,13 @@
 import { Transform } from "class-transformer";
-import { IsEmail, IsOptional, IsString, MinLength,  } from "class-validator";
+import { IsEmail, IsNumber, IsOptional, IsString, MinLength,  } from "class-validator";
 
 export class LoginDto {
+    @IsNumber()
+    @IsOptional()
+    id?: string;
+    @IsString()
+    @IsOptional()
+    nombre?: string;
     @IsEmail()
     email:string;
     @Transform(({value}) => value.trim())

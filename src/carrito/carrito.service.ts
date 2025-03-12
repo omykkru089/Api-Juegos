@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Carrito } from './entities/carrito.entity';
@@ -16,29 +16,52 @@ export class CarritoService {
       private readonly pedidoRepository: Repository<Pedido>,
   ) {}
 
-  async addToCarrito(id_pedido: number, juego_Identificador: number, cantidad: number) {
-    const juego = await this.juegoRepository.findOneBy({id: juego_Identificador});
-    const pedido = await this.pedidoRepository.findOneBy({id: id_pedido});
-
-    if (!juego){
-          throw new BadRequestException('Juego no encontrada');
-        };
-        if (!pedido){
-          throw new BadRequestException('Pedido no encontrada');
-        };
-    const carritoItem = new Carrito();
-    carritoItem.pedido = pedido; // Creas el pedido por ID
-    carritoItem.juego = juego; // Creas el juego por ID
-    carritoItem.cantidad = cantidad;
+  async addToCarrito(userId: number, pedidoId: number, juegoId: number, cantidad: number) {
+    const pedido = await this.pedidoRepository.findOne({
+      where: { id: pedidoId, user: { id: userId } },
+      relations: ['user']
+    });
+  
+    if (!pedido) {
+      throw new NotFoundException('Pedido no encontrado o no pertenece al usuario');
+    }
+  
+    const juego = await this.juegoRepository.findOne({ where: { id: juegoId } });
+    if (!juego) {
+      throw new NotFoundException('Juego no encontrado');
+    }
+  
+    const carritoItem = this.carritoRepository.create({
+      pedido,
+      juego,
+      cantidad
+    });
+  
     return this.carritoRepository.save(carritoItem);
   }
 
-  async getCarritoByPedido(id_pedido: number) {
-    return this.carritoRepository.find({ where: { pedido: { id: id_pedido } }});
+  async getCarritoByPedido(pedidoId: number, userId: number) {
+    const pedido = await this.pedidoRepository.findOne({
+      where: { id: pedidoId, user: { id: userId } },
+    });
+    if (!pedido) {
+      throw new NotFoundException('Pedido no encontrado');
+    }
+    return this.carritoRepository.find({
+      where: { pedido: { id: pedidoId } },
+      relations: ['pedido', 'juego'],
+    });
   }
-
-  async removeFromCarrito(id_pedido: number) {
-    return this.carritoRepository.delete(id_pedido);
+  
+  async removeFromCarrito(id: number, userId: number) {
+    const carritoItem = await this.carritoRepository.findOne({
+      where: { id },
+      relations: ['pedido', 'pedido.user'],
+    });
+    if (!carritoItem || carritoItem.pedido.user.id !== userId) {
+      throw new NotFoundException('Item de carrito no encontrado');
+    }
+    return this.carritoRepository.remove(carritoItem);
   }
 
   async clearCarrito(id_pedido: number) {

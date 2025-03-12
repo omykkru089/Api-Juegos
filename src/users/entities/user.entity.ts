@@ -23,6 +23,6 @@ export class User {
     @DeleteDateColumn()
     deletedlAt: Date;
 
-    @OneToMany(() => Pedido, (pedido) => pedido.user)
+    @OneToMany(() => Pedido, (pedido) => pedido.id)
     pedidos: Pedido[];
 }

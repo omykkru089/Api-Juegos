@@ -10,6 +10,7 @@ import { UserActiveInterface } from '../common/interface/user-active.interface';
 
 interface RequestWithUser extends Request {
     user: {
+        id: string;
         email: string;
         role: string;
     }
@@ -48,7 +49,7 @@ export class AuthController {
     // }
 
     @Get('profile')
-    @Auth(Role.ADMIN)
+    @Auth(Role.USER)
     profile(@ActiveUser() user: UserActiveInterface) {
     return this.authService.profile(user);
     }
