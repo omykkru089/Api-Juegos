@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Carrito } from './entities/carrito.entity';
@@ -43,6 +43,7 @@ export class CarritoService {
   async getCarritoByPedido(pedidoId: number, userId: number) {
     const pedido = await this.pedidoRepository.findOne({
       where: { id: pedidoId, user: { id: userId } },
+      relations: ['user'],
     });
     if (!pedido) {
       throw new NotFoundException('Pedido no encontrado');
@@ -63,8 +64,15 @@ export class CarritoService {
     }
     return this.carritoRepository.remove(carritoItem);
   }
-
-  async clearCarrito(id_pedido: number) {
-    return this.carritoRepository.delete({ pedido: { id: id_pedido } });
+  
+  async getCarritoItem(pedidoId: number, juegoId: number) {
+    const carritoItem = await this.carritoRepository.findOne({
+      where: { pedido: { id: pedidoId }, juego: { id: juegoId } },
+      relations: ['pedido', 'juego'],
+    });
+    if (!carritoItem) {
+      throw new NotFoundException('Item de carrito no encontrado');
+    }
+    return carritoItem;
   }
 }

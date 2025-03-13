@@ -7,7 +7,7 @@ export class Pedido {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User, user => user.pedidos)
+  @ManyToOne(() => User, user => user.pedidos, { onDelete: 'CASCADE' })
   user: User;
 
   @CreateDateColumn({ type: 'timestamp' })
@@ -16,7 +16,7 @@ export class Pedido {
   @Column()
   estado: string;
   
-  @OneToMany(() => Carrito, carrito => carrito.pedido)
-  id_carrito: Carrito;
+  @OneToMany(() => Carrito, carrito => carrito.pedido, { cascade: true })
+  carritoItems: Carrito[];
 
 }

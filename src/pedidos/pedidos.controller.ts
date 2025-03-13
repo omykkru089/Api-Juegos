@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseGuards, Req } from '@nestjs/common';
 import { PedidosService } from './pedidos.service';
 import { Auth } from 'src/auth/Decorators/auth.decorator';
 import { Role } from 'src/common/enums/rol.enum';
+import { AuthGuard } from 'src/auth/guard/auth.guard';
 
 @Controller('pedidos')
 export class PedidosController {
@@ -18,20 +19,15 @@ export class PedidosController {
   }
 
   @Get(':userId')
-  @Auth(Role.USER)
-  async getPedido(@Param('userId') userId: number) {
-    return this.pedidosService.getPedidoByUser(userId);
+  @UseGuards(AuthGuard)
+  async getPedidos(@Param('userId') userId: number) {
+    return this.pedidosService.getPedidosByUser(userId);
   }
 
-  @Delete(':userId')
-  @Auth(Role.USER)
-  async removeFromPedido(@Param('userId') id:number, userId: number) {
-    return this.pedidosService.removeFromPedido(id, userId);
-  }
-
-  @Delete('clear/:userId')
-  @Auth(Role.USER)
-  async clearPedido(@Param('userId') userId: number) {
-    return this.pedidosService.clearPedido(userId);
+  @Delete(':id')
+  @UseGuards(AuthGuard)
+  async deletePedido(@Param('id') id: number, @Req() req) {
+    const userId = req.user.id;
+    return this.pedidosService.deletePedido(id, userId);
   }
 }

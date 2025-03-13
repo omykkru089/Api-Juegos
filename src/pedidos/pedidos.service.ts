@@ -20,7 +20,7 @@ export class PedidosService {
       }
     
       const newPedido = this.pedidoRepository.create({
-        user,
+        user: user,
         fecha_creacion,
         estado
       });
@@ -37,24 +37,15 @@ export class PedidosService {
       return this.pedidoRepository.save(pedidoItem);
     }
     
-    async getPedidoByUser(userId: number) {
-      return this.pedidoRepository.find({
-        where: { user: { id: userId } },
-        relations: ['user'],
-      });
+    async getPedidosByUser(userId: number) {
+      return this.pedidoRepository.find({ where: { user: { id: userId } } });
     }
-    
-    async removeFromPedido(id: number, userId: number) {
-      const pedido = await this.pedidoRepository.findOne({
-        where: { id, user: { id: userId } },
-      });
+  
+    async deletePedido(id: number, userId: number) {
+      const pedido = await this.pedidoRepository.findOne({ where: { id, user: { id: userId } } });
       if (!pedido) {
         throw new NotFoundException('Pedido no encontrado');
       }
       return this.pedidoRepository.remove(pedido);
-    }
-    
-    async clearPedido(userId: number) {
-      return this.pedidoRepository.delete({ user: { id: userId } });
     }
 }
