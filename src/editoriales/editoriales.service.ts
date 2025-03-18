@@ -18,6 +18,10 @@ export class EditorialesService {
     return await this.editorialRepository.save(createEditorialeDto);
   }
 
+async findOneByName(nombre: string): Promise<Editoriale> {
+    return await this.editorialRepository.findOneBy({ nombre });
+  }
+
   async findAll() {
     return await this.editorialRepository.find();
   }

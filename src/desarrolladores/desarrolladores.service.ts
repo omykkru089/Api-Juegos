@@ -17,6 +17,10 @@ export class DesarrolladoresService {
     return await this.desarrolladorRepository.save(createDesarrolladoreDto);
   }
 
+async findOneByName(nombre: string): Promise<Desarrolladore> {
+    return await this.desarrolladorRepository.findOneBy({ nombre });
+  }
+
   async findAll() {
     return await this.desarrolladorRepository.find();
   }

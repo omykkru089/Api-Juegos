@@ -1,39 +1,63 @@
-import { IsOptional, IsString } from "class-validator";
+import { IsArray, IsNotEmpty, IsString } from "class-validator";
 
 export class CreateJuegoDto {
+  @IsString()
+  @IsNotEmpty()
+  nombre: string;
 
-    @IsString()
-    nombre: string;
-    @IsString()
-    descripcion: string;
-    @IsOptional()
-    categoria?: string;
-    @IsString()
-    @IsOptional()
-    plataforma?: string;
-    @IsString()
-    precio: string;
-    @IsString()
-    @IsOptional()
-    fecha_de_lanzamiento?: string;
-    @IsString()
-    desarrollador: string;
-    @IsString()
-    editorial: string;
-    @IsString()
-    clasificacion_por_edad: string;
-    @IsString()
-    idiomas : string;
-    @IsString()
-    @IsOptional()
-    imagen_de_portada?: string;
-    @IsString()
-    @IsOptional()
-    video?: string;
-    @IsString()
-    requisitos_del_sistema: string;
-    @IsString()
-    popularidad: string;
-    @IsString()
-    link: string;
+  @IsArray()
+  @IsString({ each: true })
+  descripcion: string[];
+
+  @IsString()
+  @IsNotEmpty()
+  categoria: string;
+
+  @IsString()
+  @IsNotEmpty()
+  plataforma: string;
+
+  @IsString()
+  @IsNotEmpty()
+  editorial: string;
+
+  @IsString()
+  @IsNotEmpty()
+  desarrollador: string;
+
+  @IsString()
+  @IsNotEmpty()
+  precio: string;
+
+  @IsString()
+  @IsNotEmpty()
+  fecha_de_lanzamiento: string;
+
+  @IsArray()
+  @IsString({ each: true })
+  clasificacion_por_edad: string[];
+
+  @IsArray()
+  @IsString({ each: true })
+  idiomas: string[];
+
+  @IsArray()
+  @IsString({ each: true })
+  imagen_de_portada: string[];
+
+  @IsArray()
+  @IsString({ each: true })
+  video: string[];
+
+  @IsArray()
+  @IsString({ each: true })
+  requisitos_del_sistema: string[];
+
+  @IsString()
+  @IsNotEmpty()
+  popularidad: string;
+
+  @IsArray()
+  @IsString({ each: true })
+  link: string[];
 }

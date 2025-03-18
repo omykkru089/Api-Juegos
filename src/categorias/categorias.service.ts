@@ -15,7 +15,11 @@ export class CategoriasService {
   async create(createCategoriaDto: CreateCategoriaDto) {
     return await this.categoriaRepository.save(createCategoriaDto);
   }
-  
+
+  async findOneByName(nombre: string): Promise<Categoria> {
+    return await this.categoriaRepository.findOneBy({ nombre });
+  }
+
 async findAll() {
   return await this.categoriaRepository.find();
 }

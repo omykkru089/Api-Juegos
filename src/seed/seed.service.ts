@@ -36,14 +36,47 @@ export class SeedService {
       }
 
 
-      private async insertNewJuegos(){
-        await this.juegoService.deleteAllJuegos();
+      private async insertNewJuegos() {
+        await this.juegoService.deleteAllJuegos(); // Limpia los juegos existentes
         const insertPromisesJuegos = [];
-        
-        seedJuegos.forEach( (juego: CreateJuegoDto )  => {
-          console.log(juego); 
-          insertPromisesJuegos.push(this.juegoService.create(juego));
-        });
+      
+        for (const juego of seedJuegos) {
+          // Procesar campos relacionados
+          const categoria = await this.categoriaService.findOneByName(juego.categoria);
+          if (!categoria) {
+            throw new Error(`Categoría "${juego.categoria}" no encontrada`);
+          }
+      
+          const plataforma = await this.plataformaService.findOneByName(juego.plataforma);
+          if (!plataforma) {
+            throw new Error(`Plataforma "${juego.plataforma}" no encontrada`);
+          }
+      
+          const editorial = await this.editorialService.findOneByName(juego.editorial);
+          if (!editorial) {
+            throw new Error(`Editorial "${juego.editorial}" no encontrada`);
+          }
+      
+          const desarrollador = await this.desarrolladorService.findOneByName(juego.desarrollador);
+          if (!desarrollador) {
+            throw new Error(`Desarrollador "${juego.desarrollador}" no encontrado`);
+          }
+      
+          // Crear el juego con los datos procesados
+          const newJuego: CreateJuegoDto = {
+            ...juego,
+            link: juego.link, // Pasa el array directamente
+            categoria: categoria.nombre,
+            plataforma: plataforma.nombre,
+            editorial: editorial.nombre,
+            desarrollador: desarrollador.nombre,
+            
+          };
+      
+          insertPromisesJuegos.push(this.juegoService.create(newJuego));
+        }
+      
+        await Promise.all(insertPromisesJuegos); // Inserta todos los juegos
       }
       
       private async insertNewCategorias(){

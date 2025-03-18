@@ -18,6 +18,10 @@ export class PlataformasService {
     return await this.plataformaRepository.save(createPlataformaDto);
   }
 
+async findOneByName(nombre: string): Promise<Plataforma> {
+    return await this.plataformaRepository.findOneBy({ nombre });
+  }
+
   async findAll() {
     return await this.plataformaRepository.find();
   }

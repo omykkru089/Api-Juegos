@@ -22,6 +22,12 @@ export class JuegosController {
     return this.juegosService.findAll();
   }
 
+  // Coloca esta ruta antes de @Get(':id')
+  @Get('link/:link')
+  findOneByLink(@Param('link') link: string) {
+    return this.juegosService.findOneByLink(link);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.juegosService.findOne(+id);
