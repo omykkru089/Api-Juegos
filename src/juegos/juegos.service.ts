@@ -76,10 +76,19 @@ async findAll() {
 
   // Nuevo método para buscar por link
   async findOneByLink(link: string): Promise<Juego> {
-    const juego = await this.juegoRepository.findOne({ where: { link } });
+    const juego = await this.juegoRepository
+      .createQueryBuilder('juego')
+      .leftJoinAndSelect('juego.categoria', 'categoria') // Incluye la relación con categoría
+      .leftJoinAndSelect('juego.plataforma', 'plataforma') // Incluye la relación con plataforma
+      .leftJoinAndSelect('juego.editorial', 'editorial') // Incluye la relación con editorial
+      .leftJoinAndSelect('juego.desarrollador', 'desarrollador') // Incluye la relación con desarrollador
+      .where('JSON_CONTAINS(juego.link, :link)', { link: `"${link}"` }) // Usamos JSON_CONTAINS
+      .getOne();
+  
     if (!juego) {
       throw new NotFoundException(`Juego con link "${link}" no encontrado`);
     }
+  
     return juego;
   }
 

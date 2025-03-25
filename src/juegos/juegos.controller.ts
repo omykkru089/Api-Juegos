@@ -23,10 +23,10 @@ export class JuegosController {
   }
 
   // Coloca esta ruta antes de @Get(':id')
-  @Get('link/:link')
-  findOneByLink(@Param('link') link: string) {
-    return this.juegosService.findOneByLink(link);
-  }
+  @Get('link/:link') // Ruta para buscar por link
+findOneByLink(@Param('link') link: string) {
+  return this.juegosService.findOneByLink(link);
+}
 
   @Get(':id')
   findOne(@Param('id') id: string) {

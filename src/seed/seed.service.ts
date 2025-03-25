@@ -70,7 +70,6 @@ export class SeedService {
             plataforma: plataforma.nombre,
             editorial: editorial.nombre,
             desarrollador: desarrollador.nombre,
-            
           };
       
           insertPromisesJuegos.push(this.juegoService.create(newJuego));
@@ -79,14 +78,32 @@ export class SeedService {
         await Promise.all(insertPromisesJuegos); // Inserta todos los juegos
       }
       
-      private async insertNewCategorias(){
-        await this.categoriaService.deleteAllCategoria();
+      private async insertNewDesarrolladores() {
+        await this.desarrolladorService.deleteAllDesarrollador(); // Limpia los desarrolladores existentes
+        const insertPromisesDesarrolladores = [];
+      
+        for (const desarrollador of seedDesarrollador) {
+          const exists = await this.desarrolladorService.findOneByName(desarrollador.nombre);
+          if (!exists) {
+            insertPromisesDesarrolladores.push(this.desarrolladorService.create(desarrollador));
+          }
+        }
+      
+        await Promise.all(insertPromisesDesarrolladores); // Inserta todos los desarrolladores
+      }
+
+      private async insertNewCategorias() {
+        await this.categoriaService.deleteAllCategoria(); // Limpia las categorías existentes
         const insertPromisesCategorias = [];
-        seedCategorias.forEach( (categoria: Categoria) => {
-          console.log(categoria); 
-            // insertPromisesCategorias.push(this.categoriaService.create(categoria))
+      
+        for (const categoria of seedCategorias) {
+          const exists = await this.categoriaService.findOneByName(categoria.nombre);
+          if (!exists) {
             insertPromisesCategorias.push(this.categoriaService.create(categoria));
-        })
+          }
+        }
+      
+        await Promise.all(insertPromisesCategorias); // Inserta todas las categorías
       }
       
       
@@ -108,14 +125,7 @@ export class SeedService {
         });
       }
       
-      private async insertNewDesarrolladores(){
-        await this.desarrolladorService.deleteAllDesarrollador();
-        const insertPromisesDesarrolladores = [];
-        seedDesarrollador.forEach( (desarrollador: Desarrolladore)  => {
-          console.log(desarrollador);  
-          insertPromisesDesarrolladores.push(this.desarrolladorService.create(desarrollador));
-        });
-      }
+      
       
 }
 

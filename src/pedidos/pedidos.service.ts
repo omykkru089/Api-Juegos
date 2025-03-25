@@ -29,16 +29,25 @@ export class PedidosService {
     }
 
     async addToPedido(userId: number, fecha_creacion: Date, estado: string) {
-      const user = await this.userRepository.findOneBy({id: userId});
-      const pedidoItem = new Pedido();
-      pedidoItem.user = user;  // Creas el usuario por ID
-      pedidoItem.fecha_creacion = fecha_creacion;
-      pedidoItem.estado = estado;
-      return this.pedidoRepository.save(pedidoItem);
+      const user = await this.userRepository.findOne({ where: { id: userId } });
+      if (!user) {
+        throw new NotFoundException('Usuario no encontrado');
+      }
+    
+      const newPedido = this.pedidoRepository.create({
+        user,
+        fecha_creacion,
+        estado,
+      });
+    
+      return this.pedidoRepository.save(newPedido);
     }
     
     async getPedidosByUser(userId: number) {
-      return this.pedidoRepository.find({ where: { user: { id: userId } } });
+      return this.pedidoRepository.find({
+        where: { user: { id: userId } },
+        relations: ['user', 'carritoItems', 'carritoItems.juego'], // Incluye las relaciones necesarias
+      });
     }
   
     async deletePedido(id: number, userId: number) {

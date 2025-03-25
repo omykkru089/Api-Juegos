@@ -24,7 +24,7 @@ export class Juego {
   @ManyToOne(() => Editoriale, (editorial) => editorial.id, { eager: true })
   editorial: Editoriale;
 
-  @ManyToOne(() => Desarrolladore, (desarrolladore) => desarrolladore.id, { eager: true })
+  @ManyToOne(() => Desarrolladore, (desarrolladore) => desarrolladore.juegos, { eager: true })
   desarrollador: Desarrolladore;
 
   @Column()
@@ -51,20 +51,6 @@ export class Juego {
   @Column()
   popularidad: string;
 
-  @Column({
-    type: 'varchar', // Cambiado de 'text' a 'varchar'
-    length: 255, // Longitud máxima definida
-    unique: true, // Mantén la restricción de unicidad
-    transformer: {
-      to: (value: string[] | null | undefined) => {
-        // Si el valor es un array, únelo con comas; si no, devuelve una cadena vacía
-        return Array.isArray(value) ? value.join(',') : '';
-      },
-      from: (value: string | null | undefined) => {
-        // Si el valor es una cadena, divídelo en un array; si no, devuelve un array vacío
-        return typeof value === 'string' ? value.split(',') : [];
-      },
-    },
-  })
+  @Column('json') // Cambiado a JSON})
   link: string[];
 }
