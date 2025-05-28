@@ -1,9 +1,9 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, ManyToOne, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Categoria } from '../../categorias/entities/categoria.entity';
 import { Plataforma } from '../../plataformas/entities/plataforma.entity';
 import { Editoriale } from '../../editoriales/entities/editoriale.entity';
 import { Desarrolladore } from '../../desarrolladores/entities/desarrolladore.entity';
-
+import { ClaveJuego } from '../../clavesjuegos/entities/clavesjuegos.entity';
 @Entity()
 export class Juego {
   @PrimaryGeneratedColumn()
@@ -15,16 +15,16 @@ export class Juego {
   @Column('json') // Cambiado a JSON
   descripcion: string[];
 
-  @ManyToOne(() => Categoria, (categoria) => categoria.id, { eager: true })
+  @ManyToOne(() => Categoria, (categoria) => categoria.nombre, { eager: true })
   categoria: Categoria;
 
-  @ManyToOne(() => Plataforma, (plataforma) => plataforma.id, { eager: true })
+  @ManyToOne(() => Plataforma, (plataforma) => plataforma.nombre, { eager: true })
   plataforma: Plataforma;
 
-  @ManyToOne(() => Editoriale, (editorial) => editorial.id, { eager: true })
+  @ManyToOne(() => Editoriale, (editorial) => editorial.nombre, { eager: true })
   editorial: Editoriale;
 
-  @ManyToOne(() => Desarrolladore, (desarrolladore) => desarrolladore.juegos, { eager: true })
+  @ManyToOne(() => Desarrolladore, (desarrolladore) => desarrolladore.nombre, { eager: true })
   desarrollador: Desarrolladore;
 
   @Column({ type: 'enum', enum: ['PC', 'Xbox', 'Playstation', 'Nintendo'], default: 'PC' })
@@ -56,4 +56,7 @@ export class Juego {
 
   @Column('json') // Cambiado a JSON})
   link: string[];
+
+  @OneToMany(() => ClaveJuego, (clave) => clave.juego)
+  claves: ClaveJuego[];
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } from '@nestjs/common';
 import { JuegosService } from './juegos.service';
 import { CreateJuegoDto } from './dto/create-juego.dto';
 import { UpdateJuegoDto } from './dto/update-juego.dto';
@@ -44,4 +44,13 @@ update(@Param('id') id: string, @Body() updateJuegoDto: UpdateJuegoDto) {
   remove(@Param('id') id: string) {
     return this.juegosService.remove(+id);
   }
+
+  @Post('bulk')
+@Auth(Role.ADMIN)
+createBulk(
+  @Body(new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true }))
+  juegos: CreateJuegoDto[]
+) {
+  return Promise.all(juegos.map(juego => this.juegosService.create(juego)));
+}
 }

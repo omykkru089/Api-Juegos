@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } from '@nestjs/common';
 import { DesarrolladoresService } from './desarrolladores.service';
 import { CreateDesarrolladoreDto } from './dto/create-desarrolladore.dto';
 import { UpdateDesarrolladoreDto } from './dto/update-desarrolladore.dto';
+import { Auth } from 'src/auth/Decorators/auth.decorator';
+import { Role } from 'src/common/enums/rol.enum';
 
 @Controller('desarrolladores')
 export class DesarrolladoresController {
@@ -31,4 +33,13 @@ export class DesarrolladoresController {
   remove(@Param('id') id: string) {
     return this.desarrolladoresService.remove(+id);
   }
+
+  @Post('bulk')
+@Auth(Role.ADMIN)
+createBulk(
+  @Body(new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true }))
+  desarrolladores: CreateDesarrolladoreDto[]
+) {
+  return Promise.all(desarrolladores.map(dev => this.desarrolladoresService.create(dev)));
+}
 }

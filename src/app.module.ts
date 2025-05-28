@@ -10,6 +10,9 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { CarritoModule } from './carrito/carrito.module';
 import { PedidosModule } from './pedidos/pedidos.module';
+import { PagosController } from './pagos/pagos.controller';
+import { PagosModule } from './pagos/pagos.module';
+import { ClavesJuegosModule } from './clavesjuegos/clavesjuegos.module';
 
 @Module({
   imports: [
@@ -33,6 +36,8 @@ import { PedidosModule } from './pedidos/pedidos.module';
     AuthModule,
     CarritoModule,
     PedidosModule,
+    ClavesJuegosModule,
+    PagosModule
   ],
   controllers: [],
   providers: [],

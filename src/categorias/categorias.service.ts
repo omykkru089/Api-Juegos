@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreateCategoriaDto } from './dto/create-categoria.dto';
 import { UpdateCategoriaDto } from './dto/update-categoria.dto';
 import { Repository } from 'typeorm';
@@ -25,7 +25,10 @@ async findAll() {
 }
 
 async findOne(id: number) {
-  return await this.categoriaRepository.findOneBy({id});
+  if (typeof id !== 'number' || isNaN(id) || id <= 0) {
+    throw new BadRequestException('El id debe ser un número válido y mayor que 0');
+  }
+  return await this.categoriaRepository.findOneBy({ id });
 }
 
 async update(id: number, updateCategoriaDto: UpdateCategoriaDto) {
@@ -36,15 +39,12 @@ async remove(id: number) {
   return await this.categoriaRepository.delete({ id });
 }
 
-async deleteAllCategoria(){
-  const query = this.categoriaRepository.createQueryBuilder('categoria');
-  try{
-    return await query 
-      .delete()
-      .where({})
-      .execute()
-  }catch(error){
-    throw new InternalServerErrorException('sysadmin categoria ...')
+async deleteAllCategoria() {
+  try {
+    await this.categoriaRepository.createQueryBuilder().delete().execute();
+    return { message: 'Todas las categorías han sido eliminadas' };
+  } catch (error) {
+    throw new InternalServerErrorException('Error al eliminar todas las categorías');
   }
 }
 }

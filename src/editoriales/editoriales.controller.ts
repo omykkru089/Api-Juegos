@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } from '@nestjs/common';
 import { EditorialesService } from './editoriales.service';
 import { CreateEditorialeDto } from './dto/create-editoriale.dto';
 import { UpdateEditorialeDto } from './dto/update-editoriale.dto';
+import { Auth } from 'src/auth/Decorators/auth.decorator';
+import { Role } from 'src/common/enums/rol.enum';
 
 @Controller('editoriales')
 export class EditorialesController {
@@ -31,4 +33,13 @@ export class EditorialesController {
   remove(@Param('id') id: string) {
     return this.editorialesService.remove(+id);
   }
+
+  @Post('bulk')
+@Auth(Role.ADMIN)
+createBulk(
+  @Body(new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true }))
+  editoriales: CreateEditorialeDto[]
+) {
+  return Promise.all(editoriales.map(editorial => this.editorialesService.create(editorial)));
+}
 }

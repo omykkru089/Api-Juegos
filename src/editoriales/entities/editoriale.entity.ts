@@ -1,11 +1,11 @@
 import { Juego } from "src/juegos/entities/juego.entity";
-import { Column, Entity, OneToMany } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Editoriale {
 
 
-    @Column({ primary: true, generated: true })
+    @PrimaryGeneratedColumn()
     id: number;
     @Column()
     nombre: string;

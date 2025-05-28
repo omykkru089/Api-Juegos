@@ -64,4 +64,16 @@ export class PedidosService {
       }
       return this.pedidoRepository.remove(pedido);
     }
+
+    async deletePedidoPendienteByUser(userId: number) {
+  const pedido = await this.pedidoRepository.findOne({
+    where: { user: { id: userId }, estado: 'pendiente' },
+    relations: ['carritoItems'],
+  });
+  if (pedido) {
+    await this.pedidoRepository.remove(pedido);
+    return { message: 'Pedido pendiente eliminado' };
+  }
+  return { message: 'No había pedido pendiente' };
+}
 }

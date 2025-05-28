@@ -59,20 +59,28 @@ export class CarritoService {
 
   // Obtener los elementos del carrito por pedido
   async getCarritoByPedido(userId: number) {
-    const pedido = await this.pedidoRepository.findOne({
-      where: { user: { id: userId }, estado: 'pendiente' },
-      relations: ['user'],
-    });
+  let pedido = await this.pedidoRepository.findOne({
+    where: { user: { id: userId }, estado: 'pendiente' },
+    relations: ['user'],
+  });
 
-    if (!pedido) {
-      throw new NotFoundException('No hay un pedido activo para este usuario');
-    }
-
-    return this.carritoRepository.find({
-      where: { pedido: { user: { id: userId } } },
-      relations: ['pedido', 'juego'], // Incluye las relaciones necesarias
+  // Si no hay pedido pendiente, créalo automáticamente
+  if (!pedido) {
+    pedido = this.pedidoRepository.create({
+      user: { id: userId },
+      fecha_creacion: new Date(),
+      estado: 'pendiente',
     });
+    await this.pedidoRepository.save(pedido);
+    // Devuelve un array vacío porque aún no hay items
+    return [];
   }
+
+  return this.carritoRepository.find({
+    where: { pedido: { user: { id: userId } } },
+    relations: ['pedido', 'juego'],
+  });
+}
 
   // Nueva función para obtener todos los carritos
   async findAllCarritos() {

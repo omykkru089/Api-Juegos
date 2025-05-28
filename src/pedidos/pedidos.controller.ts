@@ -4,6 +4,7 @@ import { Auth } from 'src/auth/Decorators/auth.decorator';
 import { Role } from 'src/common/enums/rol.enum';
 import { AuthGuard } from 'src/auth/guard/auth.guard';
 
+
 @Controller('pedidos')
 export class PedidosController {
   constructor(private readonly pedidosService: PedidosService) {}
@@ -40,4 +41,11 @@ async getAllPedidos() {
     const userId = req.user.id;
     return this.pedidosService.deletePedido(id, userId);
   }
+
+  @Delete('pendiente/usuario')
+@UseGuards(AuthGuard)
+async deletePedidoPendiente(@Req() req) {
+  const userId = req.user.id;
+  return this.pedidosService.deletePedidoPendienteByUser(userId);
+}
 }

@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } from '@nestjs/common';
 import { PlataformasService } from './plataformas.service';
 import { CreatePlataformaDto } from './dto/create-plataforma.dto';
 import { UpdatePlataformaDto } from './dto/update-plataforma.dto';
+import { Auth } from 'src/auth/Decorators/auth.decorator';
+import { Role } from 'src/common/enums/rol.enum';
 
 @Controller('plataformas')
 export class PlataformasController {
@@ -31,4 +33,14 @@ update(@Param('id') id: string, @Body() updatePlataformaDto: UpdatePlataformaDto
   remove(@Param('id') id: string) {
     return this.plataformasService.remove(+id);
   }
+
+@Post('bulk')
+@Auth(Role.ADMIN)
+createBulk(
+  @Body(new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true }))
+  plataformas: CreatePlataformaDto[]
+) {
+  return Promise.all(plataformas.map(plataforma => this.plataformasService.create(plataforma)));
+}
+
 }

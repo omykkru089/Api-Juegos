@@ -5,9 +5,9 @@ import * as seedCategorias from './data/categoria.json';
 import * as seedPlataforma from './data/plataforma.json';
 import * as seedDesarrollador from './data/desarroladores.json';
 import * as seedEditorial from './data/editorial.json'
+import * as seedClavesJuegos from './data/clavesjuegos.json';
 
 import { CategoriasService } from 'src/categorias/categorias.service';
-import { Categoria } from 'src/categorias/entities/categoria.entity';
 import { DesarrolladoresService } from 'src/desarrolladores/desarrolladores.service';
 import { EditorialesService } from 'src/editoriales/editoriales.service';
 import { CreateJuegoDto } from 'src/juegos/dto/create-juego.dto';
@@ -15,6 +15,8 @@ import { JuegosService } from 'src/juegos/juegos.service';
 import { PlataformasService } from 'src/plataformas/plataformas.service';
 import { Plataforma } from 'src/plataformas/entities/plataforma.entity';
 import { Editoriale } from 'src/editoriales/entities/editoriale.entity';
+import { ClavesJuegosService } from 'src/clavesjuegos/clavesjuegos.service';
+import { Categoria } from 'src/categorias/entities/categoria.entity';
 import { Desarrolladore } from 'src/desarrolladores/entities/desarrolladore.entity';
 @Injectable()
 export class SeedService {
@@ -25,25 +27,31 @@ export class SeedService {
         private readonly plataformaService: PlataformasService,
         private readonly editorialService: EditorialesService,
         private readonly desarrolladorService: DesarrolladoresService,
+        private readonly clavesJuegosService: ClavesJuegosService,
+
     ){}
 
     public async loadData(){
+        await this.juegoService.deleteAllJuegos(); // <--- Esto primero
+        await this.categoriaService.deleteAllCategoria();
         await this.insertNewCategorias();
         await this.insertNewPlataformas();
         await this.insertNewEditoriales();
         await this.insertNewDesarrolladores();
         await this.insertNewJuegos();
+        await this.insertNewClavesJuegos();
       }
 
 
       private async insertNewJuegos() {
-        await this.juegoService.deleteAllJuegos(); // Limpia los juegos existentes
+    await this.juegoService.deleteAllJuegos(); // <--- Esto primero
         const insertPromisesJuegos = [];
       
         for (const juego of seedJuegos) {
           // Procesar campos relacionados
           const categoria = await this.categoriaService.findOneByName(juego.categoria);
           if (!categoria) {
+            console.error(`Categoría no encontrada para el juego:`, juego);
             throw new Error(`Categoría "${juego.categoria}" no encontrada`);
           }
       
@@ -66,10 +74,10 @@ export class SeedService {
           const newJuego: CreateJuegoDto = {
             ...juego,
             link: juego.link, // Pasa el array directamente
-            categoria: categoria.nombre,
-            plataforma: plataforma.nombre,
-            editorial: editorial.nombre,
-            desarrollador: desarrollador.nombre,
+            categoria: categoria.id,
+            plataforma: plataforma.id,
+            editorial: editorial.id,
+            desarrollador: desarrollador.id,
           };
       
           insertPromisesJuegos.push(this.juegoService.create(newJuego));
@@ -79,30 +87,21 @@ export class SeedService {
       }
       
       private async insertNewDesarrolladores() {
-        await this.desarrolladorService.deleteAllDesarrollador(); // Limpia los desarrolladores existentes
-        const insertPromisesDesarrolladores = [];
-      
-        for (const desarrollador of seedDesarrollador) {
-          const exists = await this.desarrolladorService.findOneByName(desarrollador.nombre);
-          if (!exists) {
-            insertPromisesDesarrolladores.push(this.desarrolladorService.create(desarrollador));
-          }
-        }
-      
-        await Promise.all(insertPromisesDesarrolladores); // Inserta todos los desarrolladores
-      }
+  await this.desarrolladorService.deleteAllDesarrollador(); // Limpia los desarrolladores existentes
+  const insertPromisesDesarrolladores = [];
+
+  seedDesarrollador.forEach((desarrollador: Desarrolladore) => {
+    insertPromisesDesarrolladores.push(this.desarrolladorService.create(desarrollador));
+  });
+  await Promise.all(insertPromisesDesarrolladores); // Inserta todos los desarrolladores
+}
 
       private async insertNewCategorias() {
-        await this.categoriaService.deleteAllCategoria(); // Limpia las categorías existentes
-        const insertPromisesCategorias = [];
-      
-        for (const categoria of seedCategorias) {
-          const exists = await this.categoriaService.findOneByName(categoria.nombre);
-          if (!exists) {
-            insertPromisesCategorias.push(this.categoriaService.create(categoria));
-          }
-        }
-      
+    await this.categoriaService.deleteAllCategoria();
+        const insertPromisesCategorias = []; 
+        seedCategorias.forEach( (categoria: Categoria)  => {
+              insertPromisesCategorias.push(this.categoriaService.create(categoria));
+            });
         await Promise.all(insertPromisesCategorias); // Inserta todas las categorías
       }
       
@@ -123,7 +122,13 @@ export class SeedService {
         });
       }
       
-      
+      private async insertNewClavesJuegos() {
+    const insertPromises = [];
+    for (const clave of seedClavesJuegos) {
+      insertPromises.push(this.clavesJuegosService.create(clave));
+    }
+    await Promise.all(insertPromises);
+  }
       
 }
 

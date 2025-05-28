@@ -6,12 +6,13 @@ import { CategoriasModule } from 'src/categorias/categorias.module';
 import { DesarrolladoresModule } from 'src/desarrolladores/desarrolladores.module';
 import { EditorialesModule } from 'src/editoriales/editoriales.module';
 import { PlataformasModule } from 'src/plataformas/plataformas.module';
+import { ClavesJuegosModule } from 'src/clavesjuegos/clavesjuegos.module';
 
 @Module({
   controllers: [SeedController],
   providers: [SeedService],
   imports: [
-    JuegosModule,CategoriasModule,DesarrolladoresModule,EditorialesModule,PlataformasModule
+    JuegosModule,CategoriasModule,DesarrolladoresModule,EditorialesModule,PlataformasModule,ClavesJuegosModule
   ]
 })
 export class SeedModule {}

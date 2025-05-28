@@ -1,4 +1,4 @@
-import { IsArray, IsNotEmpty, IsString } from "class-validator";
+import { IsArray, IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class CreateJuegoDto {
   @IsString()
@@ -9,21 +9,21 @@ export class CreateJuegoDto {
   @IsString({ each: true })
   descripcion: string[];
 
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  categoria: string;
+  categoria: number;
 
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  plataforma: string;
+  plataforma: number;
 
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  editorial: string;
+  editorial: number;
 
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  desarrollador: string;
+  desarrollador: number;
 
   @IsString()
   @IsNotEmpty()
